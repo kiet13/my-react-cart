@@ -1,5 +1,5 @@
 import CartBuilder from './containers/CartBuilder';
-import Layout from './components/Layout';
+import Layout from './components/Layout/Layout';
 
 function App() {
   return (
