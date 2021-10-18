@@ -1,0 +1,17 @@
+@import "../scss/variables";
+@import "../scss/mixins";
+
+.CartBuilder {
+  width: 60rem;
+  margin: auto;
+  @include respond(tab-port) {
+    width: 100%;
+  }
+}
+
+.CartBuilderHeading {
+  text-transform: uppercase;
+  letter-spacing: .1rem;
+  color: $clr-primary-1;
+  text-align: center;
+}

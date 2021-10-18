@@ -1,0 +1,55 @@
+@import "../../../scss/variables";
+
+.CartItem {
+  width: 100%;
+  height: 10rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.Item {
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+
+.ItemImage {
+  height: inherit;
+  width: auto;
+}
+
+.ItemInfo {
+  margin-left: 1rem;
+  height: 100%;
+}
+
+.ItemTitle {
+  text-transform: capitalize;
+  color: $clr-grey-1;
+  letter-spacing: .1rem;
+  font-size: 2rem;
+}
+
+.ItemPrice {
+  font-weight: 700;
+  color: $clr-grey-4;
+  margin-bottom: 1rem;
+}
+
+.RemoveButton {
+  border: none;
+  outline: none;
+  color: $clr-red-dark;
+  // padding: 1rem;
+  background-color: transparent;
+  font-size: 1.8rem;
+  letter-spacing: .1rem;
+  text-transform: lowercase;
+  cursor: pointer;
+  transition: all .4s;
+
+  &:hover {
+    color: $clr-red-light;
+  }
+}
