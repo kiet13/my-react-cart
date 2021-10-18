@@ -2,7 +2,8 @@
 @import "../scss/mixins";
 
 .CartBuilder {
-  width: 60rem;
+  width: 80rem;
+  padding: 5rem;
   margin: auto;
   @include respond(tab-port) {
     width: 100%;
@@ -10,8 +11,11 @@
 }
 
 .CartBuilderHeading {
+  padding-bottom: 5rem;
   text-transform: uppercase;
+  font-weight: 800;
   letter-spacing: .1rem;
   color: $clr-primary-1;
+  font-size: 3.6rem;
   text-align: center;
 }
