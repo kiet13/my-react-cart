@@ -54,7 +54,7 @@ function reducer(prevState, action) {
 
 function CartBuilder(props) {
   const [itemList, dispatch] = useReducer(reducer, props.initialState, init);
-  const [alert, setAlert] = useState(false);
+  const [alert, setAlert] = useState({show: false, msg: "", type: ""});
   const [toRemoveId, setToRemoveId] = useState(null);
 
   // console.log(itemList);
@@ -73,25 +73,42 @@ function CartBuilder(props) {
     }
   }
 
+  const clearAll = () => {
+    dispatch({type: 'clear'});
+  }
+
   const toRemoveHandler = (id) => {
-    setAlert(true);
+    setAlert({show: true, msg: "Do you want to remove this item?", type: "one"});
     setToRemoveId(id);
   }
 
   const confirmRemoveHandler = (id) => {
     removeItem(id);
-    setAlert(false);
-  } 
+    setAlert({show: false, msg: "", type: ""});
+  }
+
+  const toClearAllHandler = () => {
+    setAlert({show: true, msg: "Do you want to clear all items?", type: "all"});
+  }
+
+  const confirmClearAllHandler = () => {
+    clearAll();
+    setAlert({show: false, msg: "", type: ""});
+  }
+
 
 
   return (
     <div className={styles.CartBuilder}>
-      <Modal show={alert} modalClosed={() => setAlert(false)}>
+      <Modal show={alert.show} modalClosed={() => setAlert({show: false, msg: "", type: ""})}>
         <div className={styles.Alert}>
-          <p className={styles.AlertQuestion}>Do you want to remove this item?</p>
+          <p className={styles.AlertQuestion}>{alert.msg}</p>
           <div className={styles.ButtonList}>
-            <Button clicked={() => setAlert(false)}>No</Button>
-            <Button type="danger" clicked={() => confirmRemoveHandler(toRemoveId)}>Yes</Button>
+            <Button clicked={() => setAlert({show: false, msg: "", type: ""})}>No</Button>
+            { alert.type === "one" ? 
+              <Button type="danger" clicked={() => confirmRemoveHandler(toRemoveId)}>Yes</Button> :
+              <Button type="danger" clicked={confirmClearAllHandler}>Yes</Button>
+            }
           </div>
         </div>
       </Modal>
@@ -103,7 +120,7 @@ function CartBuilder(props) {
         itemDecreased={decreaseItem}
         itemRemoved={toRemoveHandler}
       />
-      <Button type="danger">clear cart</Button>
+      <Button type="danger" clicked={toClearAllHandler} disabled={itemList.length === 0}>clear cart</Button>
     </div>
   )
 }

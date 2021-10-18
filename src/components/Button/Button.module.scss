@@ -26,6 +26,7 @@
   color: $clr-white;
 
   &:hover {
+    color: $clr-white;
     border: .2rem solid $clr-red-light;
     background-color: $clr-red-light;
   }
@@ -40,4 +41,11 @@
     border: .2rem solid $clr-green-light;
     background-color: $clr-green-light;
   }
+}
+
+.Button:disabled {
+  color: $clr-primary-1;
+  background-color: $clr-grey-8;
+  border: .2rem solid $clr-grey-8;
+  cursor: not-allowed;
 }
