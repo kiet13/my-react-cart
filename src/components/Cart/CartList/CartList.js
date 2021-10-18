@@ -11,10 +11,10 @@ export default function CartList(props) {
   const itemList = props.items.map(item => 
       <CartItem 
         key={item.id}
-        img={item.img}
-        title={item.title}
-        price={item.price}
-        amount={item.amount}
+        item={item}
+        increased={() => props.itemIncreased(item.id)}
+        decreased={() => props.itemDecreased(item.id)}
+        removed={() => props.itemRemoved(item.id)}
       />
   )
 

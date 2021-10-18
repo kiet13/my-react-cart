@@ -1,6 +1,8 @@
-import React, {useReducer} from 'react'
+import React, {useState, useReducer} from 'react'
 import styles from './CartBuilder.module.scss'
 import CartList from '../components/Cart/CartList/CartList'
+import Modal from '../components/Modal/Modal'
+import Button from '../components/Button/Button'
 
 function init(initialState) {
   return [...initialState];
@@ -8,18 +10,27 @@ function init(initialState) {
 
 function reducer(prevState, action) {
   let array;
-  let index;
   switch (action.type) {
     case 'increase':
-      array = [...prevState];
-      index = array.findIndex(item => item.id === action.id);
-      array[index].ammount += 1;
+      array =  prevState.reduce((prevArr, currItem) => {
+        if (currItem.id === action.id) {
+          prevArr.push({...currItem, amount: currItem.amount + 1});
+        } else {
+          prevArr.push({...currItem});
+        }
+        return prevArr;
+      }, []);
       return array;
 
     case 'decrease':
-      array = [...prevState];
-      index = array.findIndex(item => item.id === action.id);
-      array[index].ammount -= 1;
+      array =  prevState.reduce((prevArr, currItem) => {
+        if (currItem.id === action.id) {
+          prevArr.push({...currItem, amount: currItem.amount - 1});
+        } else {
+          prevArr.push({...currItem});
+        }
+        return prevArr;
+      }, []);
       return array;
 
     case 'remove':
@@ -41,8 +52,12 @@ function reducer(prevState, action) {
   }
 }
 
-export default function CartBuilder(props) {
+function CartBuilder(props) {
   const [itemList, dispatch] = useReducer(reducer, props.initialState, init);
+  const [alert, setAlert] = useState(false);
+  const [toRemoveId, setToRemoveId] = useState(null);
+
+  // console.log(itemList);
 
   const increaseItem = (id) => {
     dispatch({type: 'increase', id: id});
@@ -53,23 +68,44 @@ export default function CartBuilder(props) {
   }
 
   const removeItem = (id) => {
-    dispatch({type: 'remove', id: id});
+    if (id !== null) {
+      dispatch({type: 'remove', id: id});
+    }
   }
 
-  // const totalPrice = () => {
-  //   dispatch({type: 'total'});
-  // }
+  const toRemoveHandler = (id) => {
+    setAlert(true);
+    setToRemoveId(id);
+  }
+
+  const confirmRemoveHandler = (id) => {
+    removeItem(id);
+    setAlert(false);
+  } 
+
 
   return (
     <div className={styles.CartBuilder}>
+      <Modal show={alert} modalClosed={() => setAlert(false)}>
+        <div className={styles.Alert}>
+          <p className={styles.AlertQuestion}>Do you want to remove this item?</p>
+          <div className={styles.ButtonList}>
+            <Button clicked={() => setAlert(false)}>No</Button>
+            <Button type="danger" clicked={() => confirmRemoveHandler(toRemoveId)}>Yes</Button>
+          </div>
+        </div>
+      </Modal>
+
       <h1 className={styles.CartBuilderHeading}>your bag</h1>
       <CartList
         items={itemList}
         itemIncreased={increaseItem}
-        itemDecrease={decreaseItem}
-        itemRemoved={removeItem}
+        itemDecreased={decreaseItem}
+        itemRemoved={toRemoveHandler}
       />
-      <button className={styles.ClearCart}>clear cart</button>
+      <Button type="danger">clear cart</Button>
     </div>
   )
 }
+
+export default CartBuilder;

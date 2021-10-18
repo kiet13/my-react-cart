@@ -3,16 +3,15 @@ import styles from './ControlButton.module.scss'
 import { FiChevronUp, FiChevronDown } from 'react-icons/fi';
 
 export default function ControlButton(props) {
-
   return (
     <div className={styles.ControlButton}>
-      <div className={styles.Up}>
+      <button className={styles.Up} onClick={props.up}>
         <FiChevronUp />
-      </div>
+      </button>
       <span className={styles.Value}>{props.value}</span>
-      <div className={styles.Down}>
+      <button className={styles.Down} onClick={props.down}>
         <FiChevronDown /> 
-      </div>
+      </button>
     </div>
   )
 }

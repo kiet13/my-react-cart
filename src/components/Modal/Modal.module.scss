@@ -1,0 +1,46 @@
+@import "../../scss/mixins";
+@import "../../scss/variables";
+
+.Modal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  background-color: $clr-white;
+  min-width: 60rem;
+  min-height: 20rem;
+  border-radius: .5rem;
+  box-shadow: $dark-shadow;
+
+  display: grid;
+  place-items: center;
+  opacity: 0;
+  visibility: hidden;
+  transform-origin: center;
+  transform: translate(-50%, -50%) scale(.1);
+  transition: all .4s;
+  z-index: 1500;
+
+  @include respond(tab-port) {
+    width: 80%;
+  }
+}
+
+.Show {
+  opacity: 1;
+  visibility: visible;
+  transform: translate(-50%, -50%) scale(1);
+}
+
+.ModalClosed {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+
+  color: $clr-red-dark;
+  font-size: 3rem;
+  cursor: pointer;
+  transition: all .4s;
+  &:hover {
+    color: $clr-red-light;
+  }
+}

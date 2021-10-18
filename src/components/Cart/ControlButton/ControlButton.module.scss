@@ -10,6 +10,9 @@
 
 .Up,
 .Down {
+  border: none;
+  outline: none;
+  background-color: transparent;
   font-size: 3rem;
   color: $clr-primary-4;
   cursor: pointer;
@@ -20,6 +23,11 @@
   display: grid;
   place-items: center;
 }
+
+// .Down:disabled {
+//   cursor: not-allowed;
+//   color: $clr-primary-8;
+// }
 
 .Value {
   font-size: 2rem;

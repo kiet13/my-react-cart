@@ -1,0 +1,43 @@
+@import "../../scss/variables";
+
+.Button {
+  outline: none;
+  border-radius: .5rem;
+  font-size: 2rem;
+  padding: 1rem;
+  min-width: 20rem;
+  letter-spacing: .1rem;
+  text-transform: uppercase;
+  cursor: pointer;
+  background-color: $clr-white;
+  border: .2rem solid $clr-primary-3;
+  color: $clr-primary-3;
+  transition: all .4s;
+
+  &:hover {
+    color: $clr-primary-5;
+    border: .2rem solid $clr-primary-5;
+  }
+}
+
+.Danger {
+  border: .2rem solid $clr-red-dark;
+  background-color: $clr-red-dark;
+  color: $clr-white;
+
+  &:hover {
+    border: .2rem solid $clr-red-light;
+    background-color: $clr-red-light;
+  }
+}
+
+.Success {
+  border: .2rem solid $clr-green-dark;
+  background-color: $clr-green-dark;
+  color: $clr-white;
+
+  &:hover {
+    border: .2rem solid $clr-green-light;
+    background-color: $clr-green-light;
+  }
+}
