@@ -26,10 +26,18 @@ function reducer(prevState, action) {
       array = [...prevState];
       return array.filter(item => item.id !== action.id);
 
+    case 'total':
+      array = [...prevState];
+      const total = array.reduce((prev, curr) => {
+        return prev + curr.price * curr.amount;
+      });
+      return total.toFixed(2);
+
     case 'clear':
       return init([]);
+
     default:
-      break;
+      throw new Error();
   }
 }
 
@@ -47,6 +55,11 @@ export default function CartBuilder(props) {
   const removeItem = (id) => {
     dispatch({type: 'remove', id: id});
   }
+
+  // const totalPrice = () => {
+  //   dispatch({type: 'total'});
+  // }
+
   return (
     <div className={styles.CartBuilder}>
       <h1 className={styles.CartBuilderHeading}>your bag</h1>
@@ -56,7 +69,7 @@ export default function CartBuilder(props) {
         itemDecrease={decreaseItem}
         itemRemoved={removeItem}
       />
-      <button styles={styles.ClearCart}>clear cart</button>
+      <button className={styles.ClearCart}>clear cart</button>
     </div>
   )
 }

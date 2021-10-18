@@ -8,6 +8,9 @@
   @include respond(tab-port) {
     width: 100%;
   }
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .CartBuilderHeading {
@@ -18,4 +21,22 @@
   color: $clr-primary-1;
   font-size: 3.6rem;
   text-align: center;
+}
+
+.ClearCart {
+  border: none;
+  outline: none;
+  border-radius: .5rem;
+  background-color: $clr-red-dark;
+  color: $clr-white;
+  font-size: 2rem;
+  padding: 1rem;
+  letter-spacing: .1rem;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all .4s;
+
+  &:hover {
+    background-color: $clr-red-light;
+  }
 }
