@@ -5,7 +5,7 @@ import Header from '../Header/Header';
 export default function Layout(props) {
   return (
     <>
-      <Header />
+      <Header numItems={props.numItems}/>
       <div className={styles.MainContent}>
         {props.children}
       </div>

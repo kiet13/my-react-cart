@@ -1,5 +1,6 @@
 import React, {useState, useReducer} from 'react'
 import styles from './CartBuilder.module.scss'
+import Layout from '../components/Layout/Layout'
 import CartList from '../components/Cart/CartList/CartList'
 import Modal from '../components/Modal/Modal'
 import Button from '../components/Button/Button'
@@ -57,6 +58,10 @@ function CartBuilder(props) {
   const [alert, setAlert] = useState({show: false, msg: "", type: ""});
   const [toRemoveId, setToRemoveId] = useState(null);
 
+  const numItems = itemList.reduce((prev, curr) => {
+    return prev + curr.amount;
+  }, 0);
+
   // console.log(itemList);
 
   const increaseItem = (id) => {
@@ -99,29 +104,31 @@ function CartBuilder(props) {
 
 
   return (
-    <div className={styles.CartBuilder}>
-      <Modal show={alert.show} modalClosed={() => setAlert({show: false, msg: "", type: ""})}>
-        <div className={styles.Alert}>
-          <p className={styles.AlertQuestion}>{alert.msg}</p>
-          <div className={styles.ButtonList}>
-            <Button clicked={() => setAlert({show: false, msg: "", type: ""})}>No</Button>
-            { alert.type === "one" ? 
-              <Button type="danger" clicked={() => confirmRemoveHandler(toRemoveId)}>Yes</Button> :
-              <Button type="danger" clicked={confirmClearAllHandler}>Yes</Button>
-            }
+    <Layout numItems={numItems}>
+      <div className={styles.CartBuilder}>
+        <Modal show={alert.show} modalClosed={() => setAlert({show: false, msg: "", type: ""})}>
+          <div className={styles.Alert}>
+            <p className={styles.AlertQuestion}>{alert.msg}</p>
+            <div className={styles.ButtonList}>
+              <Button clicked={() => setAlert({show: false, msg: "", type: ""})}>No</Button>
+              { alert.type === "one" ? 
+                <Button type="danger" clicked={() => confirmRemoveHandler(toRemoveId)}>Yes</Button> :
+                <Button type="danger" clicked={confirmClearAllHandler}>Yes</Button>
+              }
+            </div>
           </div>
-        </div>
-      </Modal>
+        </Modal>
 
-      <h1 className={styles.CartBuilderHeading}>your bag</h1>
-      <CartList
-        items={itemList}
-        itemIncreased={increaseItem}
-        itemDecreased={decreaseItem}
-        itemRemoved={toRemoveHandler}
-      />
-      <Button type="danger" clicked={toClearAllHandler} disabled={itemList.length === 0}>clear cart</Button>
-    </div>
+        <h1 className={styles.CartBuilderHeading}>your bag</h1>
+        <CartList
+          items={itemList}
+          itemIncreased={increaseItem}
+          itemDecreased={decreaseItem}
+          itemRemoved={toRemoveHandler}
+        />
+        <Button type="danger" clicked={toClearAllHandler} disabled={itemList.length === 0}>clear cart</Button>
+      </div>
+    </Layout>
   )
 }
 
